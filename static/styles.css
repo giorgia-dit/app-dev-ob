@@ -1,0 +1,21 @@
+html {
+    background-color: #E0F2F1;
+}
+
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-align: center;
+    font-weight: 300;
+    font-size: 120%;
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 180%;
+}
+
+em {
+    font-weight: 500;
+    font-style: normal;
+}
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="author" content="Giorgia Ditano" />
+    <title>My test page</title>
+
+    <link rel="stylesheet" href="static/styles.css" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function updateData() {
+                fetch('/update')
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        document.querySelector("#current-nucleotide").textContent = data.nucleotide;
+                        document.querySelector("#triplet").textContent = data.triplet;
+                        document.querySelector("#found-sc").textContent = (data.check_result ? "Yes" : "No");
+                        if (data.check_result) {
+                            stopStreaming();
+                            setTimeout(function() { alert('Stop codon found.'); }, 500);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error: ', error)
+                    });
+            }
+
+            function startStreaming() {
+                intervalID = setInterval(updateData, 1000);
+            }
+
+            function stopStreaming() {
+                clearInterval(intervalID);
+            }
+
+            startStreaming(); // streaming starts after one second
+        });
+    </script>  
+
+  </head>
+
+  <body>
+
+    <h1>Randomic rybosome</h1>
+    <p>Nucleotide: <em id="current-nucleotide"></em></p>
+    <p>Last triplet generated: <em id="triplet"></em></p>
+    <p>Is it a stop codon? <em id="found-sc"></em></p>
+
+  </body>
+
+</html>
