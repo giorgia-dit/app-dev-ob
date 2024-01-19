@@ -7,7 +7,7 @@ app = Flask(
     static_folder="static"
 )
 
-nucleotides = ('A', 'C', 'G', 'T')
+nucleotides = [('A', '#FF5722'), ('C', '#FFC107'), ('G', '#8BC34A'), ('T', '#00796B')]
 stop_codons = ('TAA', 'TAG', 'TGA')
 sequence = []
 
@@ -33,9 +33,9 @@ def index():
 @app.route('/update', methods=['GET'])
 def update():
     nucleotide_value = random_item(nucleotides)
-    update_triplet(nucleotide_value, sequence)
+    update_triplet(nucleotide_value[0], sequence)
     check_result = check_triplet(sequence, stop_codons)
-    return jsonify({'nucleotide': nucleotide_value, 'triplet': ''.join(sequence), 'check_result': check_result})
+    return jsonify({'nucleotide': nucleotide_value[0], 'triplet': ''.join(sequence), 'check_result': check_result, 'color': nucleotide_value[1]})
 
 
 if __name__ == "__main__":

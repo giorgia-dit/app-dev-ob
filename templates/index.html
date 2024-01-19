@@ -5,7 +5,7 @@
 
     <meta charset="utf-8" />
     <meta name="author" content="Giorgia Ditano" />
-    <title>My test page</title>
+    <title>Randomic rybosome</title>
 
     <link rel="stylesheet" href="static/styles.css" />
 
@@ -18,8 +18,14 @@
                     })
                     .then((data) => {
                         document.querySelector("#current-nucleotide").textContent = data.nucleotide;
+                        document.querySelector("#current-color").style.backgroundColor = data.color;
                         document.querySelector("#triplet").textContent = data.triplet;
                         document.querySelector("#found-sc").textContent = (data.check_result ? "Yes" : "No");
+
+                        const smallBox = document.createElement("div");
+                        smallBox.style.backgroundColor = data.color;
+                        document.body.appendChild(smallBox);
+
                         if (data.check_result) {
                             stopStreaming();
                             setTimeout(function() { alert('Stop codon found.'); }, 500);
@@ -47,10 +53,10 @@
   <body>
 
     <h1>Randomic rybosome</h1>
-    <p>Nucleotide: <em id="current-nucleotide"></em></p>
+    <p>Nucleotide: <em id="current-nucleotide"></em></p> 
+    <div id="current-color"></div>
     <p>Last triplet generated: <em id="triplet"></em></p>
     <p>Is it a stop codon? <em id="found-sc"></em></p>
-
   </body>
 
 </html>
